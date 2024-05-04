@@ -10,6 +10,6 @@ Easiest way to run:
  docker compose up
  ```
  It will create container and images for backend, frontend
- - 3. In browser type ``` http://localhost:4200/ ```. It will open Angular app.
+ - 3. Navigating to http://localhost:4200 will open Angular app
  - 4. Navigate to http://localhost:4200/backoffice for creating rooms and conferences
  - 5. Navigate to http://localhost:4200/conference for searching available conferences and leave feedbacks
