@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0" xmlns="http://java.sun.com/xml/ns/persistence/orm"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm
+               http://java.sun.com/xml/ns/persistence/orm_2_0.xsd ">
+
+    <named-native-query name="Conference.findAvailableByDateRange" result-class="com.example.tallink.entities.Conference">
+        <query>
+            <![CDATA[
+                SELECT *
+                FROM conference
+                WHERE start_datetime >= :startDateTime
+                  AND end_datetime <= :endDateTime
+                  AND end_datetime > NOW()
+                  AND is_cancelled IS NOT TRUE
+            ]]>
+        </query>
+    </named-native-query>
+</entity-mappings>
