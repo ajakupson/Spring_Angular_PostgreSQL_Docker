@@ -1,0 +1,7 @@
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: calc(100vh - 200px);
+}

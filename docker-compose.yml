@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=tallink'
+      - 'POSTGRES_PASSWORD=tallink'
+      - 'POSTGRES_USER=tallink'
+    ports:
+      - '5432:5432'
+  api:
+    build: ./tallink_backend/
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/tallink 
+  web:
+    build: ./tallink_frontend/
+    ports:
+      - '4200:4200'
+    depends_on:
+      - api 

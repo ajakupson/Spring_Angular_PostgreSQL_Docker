@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-6">
+        <h2>Create new conference room</h2>
+        <h4 *ngIf="!conferenceRoom.name || !conferenceRoom.status || !conferenceRoom.location|| !conferenceRoom.maxCapacity">
+            Please fill all mandatory felds
+        </h4>
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name *</label>
+                <input class="form-control" type="text" [(ngModel)] = "conferenceRoom.name" name="name"/>
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Status *</label>
+                <select class="form-control" [(ngModel)] = "conferenceRoom.status" name="status">
+                    <option value="AVAILABLE">Available</option>
+                    <option value="UNDER_CONSTRUCTION">Under construction</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Location *</label>
+                <input class="form-control" type="text" [(ngModel)] = "conferenceRoom.location" name="location"/>
+            </div>
+            <div class="mb-3">
+                <label for="maxCapacity" class="form-label">Max capacity *</label>
+                <input class="form-control" type="number" [(ngModel)] = "conferenceRoom.maxCapacity" name="maxCapacity"/>
+            </div>
+            <div class="mb-3 create-conference-room-form-buttons">
+                <a class="btn btn-secondary" routerLink="/backoffice">Cancel</a>
+                <button 
+                    type="button" 
+                    class="btn btn-primary" 
+                    (click)="createRoom()" 
+                    [disabled]="!conferenceRoom.name || !conferenceRoom.status || !conferenceRoom.location|| !conferenceRoom.maxCapacity">
+                        Create
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

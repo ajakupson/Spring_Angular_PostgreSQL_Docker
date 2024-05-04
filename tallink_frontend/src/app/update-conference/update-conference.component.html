@@ -1,0 +1,57 @@
+<div class="row justify-content-center">
+    <div class="col-6">
+        <h2>Update conference</h2>
+        <h4 *ngIf="!conference.name || !conference.description || !conference.startDateTime || !conference.endDateTime || !conference.conferenceRoomUUID">
+            Please fill all mandatory felds
+        </h4>
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name *</label>
+                <input type="text" class="form-control" [(ngModel)] = "conference.name" name="name" required/>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Description *</label>
+                <textarea class="form-control" [(ngModel)] = "conference.description" name="description" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Room *</label>
+                <select class="form-control" [(ngModel)] = "conference.conferenceRoomUUID" name="conferenceRoomUUID">
+                    <option *ngFor="let conferenceRoom of conferenceRooms" [value]="conferenceRoom.uuid">
+                    {{ conferenceRoom.name }}       
+                    </option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Start datetime *</label>
+                <input 
+                    type="datetime-local" 
+                    class="form-control"
+                    [(ngModel)] = "conference.startDateTime" 
+                    name="startDateTime" 
+                    required 
+                    [min]="currentDate | date:'yyyy-MM-ddTHH:mm:ss'"/>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">End datetime *</label>
+                <input 
+                    type="datetime-local" 
+                    class="form-control" 
+                    [(ngModel)] = "conference.endDateTime" 
+                    name="endDateTime" 
+                    required 
+                    [min]="currentDate | date:'yyyy-MM-ddTHH:mm:ss'"/>
+            </div>
+            <div class="mb-3 form-buttons">
+                <a class="btn btn-secondary" routerLink="/backoffice">Cancel</a>
+                <button 
+                    type="button" 
+                    class="btn btn-primary" 
+                    (click)="updateConference()" 
+                    [disabled]="!conference.name || !conference.description || !conference.startDateTime || !conference.endDateTime || !conference.conferenceRoomUUID">
+                        Update
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+

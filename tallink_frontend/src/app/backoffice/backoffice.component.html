@@ -1,0 +1,104 @@
+<div class="backoffice-container">
+    <h2>Conference rooms</h2>
+    <div class="d-flex justify-content-end">
+        <a class="btn btn-primary" [routerLink]="['/create-conference-room']" routerLinkActive="active">Create conference room</a>
+    </div>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">UUID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Location</th>
+            <th scope="col">Max capacity</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let conferenceRoom of conferenceRooms">
+                <td>{{conferenceRoom.uuid}}</td>
+                <td>{{conferenceRoom.name}}</td>
+                <td>
+                    <select class="form-control" [ngModel] = "conferenceRoom.status" name="status" (ngModelChange)="onConferenceRoomStatusChange($event, conferenceRoom)">
+                        <option value="AVAILABLE">Available</option>
+                        <option value="UNDER_CONSTRUCTION">Under construction</option>
+                    </select>
+                </td>
+                <td>{{conferenceRoom.location}}</td>
+                <td>
+                    <input 
+                        type="number" 
+                        class="form-control" 
+                        [ngModel] = "conferenceRoom.maxCapacity" 
+                        (ngModelChange)="this.conferenceRoomMaxCapacityChnaged.next({
+                            model: conferenceRoom,
+                            value: $event
+                        })"
+                        name="maxCapacity" 
+                        required/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Conferences</h2>
+    <div class="d-flex justify-content-end">
+        <a class="btn btn-primary" [routerLink]="['/create-conference']" routerLinkActive="active">Create conference</a>
+    </div>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">UUID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Room name</th>
+            <th scope="col">Location</th>
+            <th scope="col">Start datetime</th>
+            <th scope="col">End datetime</th>
+            <th scope="col">Room capacity</th>
+            <th scope="col">Participants</th>
+            <th scope="col">Actions</th>
+            <th scope="col">Is cancelled</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let conference of conferences">
+                <td>{{conference.uuid}}</td>
+                <td>{{conference.name}}</td>
+                <td>{{conference.description}}</td>
+                <td>{{conference.conferenceRoom?.name}}</td>
+                <td>{{conference.conferenceRoom?.location}}</td>
+                <td>{{conference.startDateTime | date}}</td>
+                <td>{{conference.endDateTime | date}}</td>
+                <td>{{ conference.conferenceRoom?.maxCapacity }}</td>
+                <td>{{ conference.conferenceParticipants?.length }}</td>
+                <td>
+                    <button 
+                        type="button" 
+                        class="btn btn-danger" 
+                        *ngIf="!conference.cancelled && showBasedOnDate(conference.startDateTime)"
+                        (click)="cancelConference(conference)" >
+                        Cancel
+                    </button>
+                    <a 
+                        routerLink="/update-conference"
+                        type="button" 
+                        class="btn btn-success ml-10"
+                        [queryParams]="{ conferenceUuid: conference.uuid}"
+                        *ngIf="!conference.cancelled && showBasedOnDate(conference.startDateTime)">
+                        Update
+                    </a>
+                    <a 
+                        routerLink="/conference-feedback"
+                        type="button" 
+                        class="btn btn-success ml-10"
+                        [queryParams]="{ conferenceUuid: conference.uuid}">
+                    Feedbacks
+                </a>
+                </td>
+                <td class="text-center">
+                    <i *ngIf="conference.cancelled">&check;</i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

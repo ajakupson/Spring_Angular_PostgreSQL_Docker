@@ -1,0 +1,85 @@
+<div class="conference-container">
+    <div class="conference-forms-container">
+        <form class="col-3">
+            <h2>Search conferences</h2>
+            <div class="mb-3">
+                <label for="name" class="form-label">Start datetime *</label>
+                <input type="datetime-local" class="form-control" [(ngModel)] = "startDateTime" name="startDateTime" required/>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">End datetime *</label>
+                <input type="datetime-local" class="form-control" [(ngModel)] = "endDateTime" name="endDateTime" required/>
+            </div>
+            <div class="mb-3 create-conference-form-buttons">
+                <button 
+                    type="button" 
+                    class="btn btn-primary"
+                    (click) = "findAvailableConferences()">
+                        Search
+                </button>
+            </div>
+        </form>
+        <form class="col-4">
+            <h2>Cancel registration or leave feedback</h2>
+            <div class="mb-3">
+                <label for="participantUUID" class="form-label">Participant UUID *</label>
+                <input type="text" class="form-control" [(ngModel)] = "participantUUID" name="participantUUID" required/>
+            </div>
+            <div class="mb-3">
+                <label for="conferenceFeedback" class="form-label">Feedback *</label>
+                <textarea class="form-control" [(ngModel)] = "conferenceFeedback" name="conferenceFeedback" required></textarea>
+            </div>
+            <div class="mb-3 form-buttons">
+                <button 
+                    type="button" 
+                    class="btn btn-danger"
+                    [disabled]="!participantUUID"
+                    (click) = "cancelRegistration()">
+                        Cancel
+                </button>
+                <button 
+                    type="button" 
+                    class="btn btn-success"
+                    [disabled]="!participantUUID || !conferenceFeedback"
+                    (click) = "leaveFeedback()">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+    <h2>Available conferences</h2>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Room name</th>
+            <th scope="col">Location</th>
+            <th scope="col">Start datetime</th>
+            <th scope="col">End datetime</th>
+            <th scope="col">Participants</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let conference of availableConferences">
+                <td>{{conference.name}}</td>
+                <td>{{conference.description}}</td>
+                <td>{{conference.conferenceRoom?.name}}</td>
+                <td>{{conference.conferenceRoom?.location}}</td>
+                <td>{{conference.startDateTime | date:'yyyy.MM.dd H:mm' }}</td>
+                <td>{{conference.endDateTime | date:'yyyy.MM.dd H:mm' }}</td>
+                <td>{{conference.conferenceParticipants?.length}}</td>
+                <td>
+                    <a 
+                        *ngIf="shouldShowRegisterButton(conference)"
+                        routerLink="/register-participant"
+                        [queryParams]="{ conferenceUuid: conference.uuid}"
+                        class="btn btn-success">
+                        Register
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

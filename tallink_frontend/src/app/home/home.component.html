@@ -1,0 +1,21 @@
+<div class="home-container">
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Backoffice</h5>
+            <p class="card-text">Create and update conference rooms and conferences</p>
+            <a class="btn btn-primary" [routerLink]="['/backoffice']" routerLinkActive="active">Enter</a>
+        </div>
+    </div>
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Conference</h5>
+            <p class="card-text">Register for conferences and leave feedbacks</p>
+            <a class="btn btn-primary" [routerLink]="['/conference']" routerLinkActive="active">Enter</a>
+        </div>
+    </div>
+
+</div>
+
+<router-outlet></router-outlet>

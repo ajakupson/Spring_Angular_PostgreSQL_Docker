@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-6">
+        <h2>Register for conference</h2>
+        <h4>Your participant code is: {{ participant.uuid }}</h4>
+        <h4 *ngIf="!participant.firstName || !participant.lastName || !participant.gender|| !participant.email || !participant.dateOfBirth">
+            Please fill all mandatory felds
+        </h4>
+        <form>
+            <div class="mb-3">
+                <label for="firstName" class="form-label">Firstname *</label>
+                <input class="form-control" type="text" [(ngModel)] = "participant.firstName" name="firstName"/>
+            </div>
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Lastname *</label>
+                <input class="form-control" type="text" [(ngModel)] = "participant.lastName" name="lastName"/>
+            </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender *</label>
+                <select class="form-control" [(ngModel)] = "participant.gender" name="gender">
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email *</label>
+                <input class="form-control" type="email" [(ngModel)] = "participant.email" name="email"/>
+            </div>
+            <div class="mb-3">
+                <label for="dateOfBirth" class="form-label">Date of birth *</label>
+                <input type="datetime-local" class="form-control" [(ngModel)] = "participant.dateOfBirth" name="dateOfBirth" required/>
+            </div>
+            <div class="mb-3 register-participant-buttons">
+                <a class="btn btn-secondary" routerLink="/conference">Cancel</a>
+                <button 
+                    type="button" 
+                    class="btn btn-primary" 
+                    (click)="register()" 
+                    [disabled]="!participant.firstName || !participant.lastName || !participant.gender|| !participant.email || !participant.dateOfBirth">
+                        Create
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
