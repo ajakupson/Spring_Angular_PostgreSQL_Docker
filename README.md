@@ -1,4 +1,4 @@
-# Demo of Spring application with Angular, Flyaway, PostgreSQL
+# Demo of Spring application with Angular, Flyway, PostgreSQL
 
 ![app](app1.png)
 ![app](app2.png)
